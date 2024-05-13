@@ -1,79 +1,67 @@
 from django.shortcuts import render, redirect
-from .forms import LoginForm,UserPasswordResetForm
+from .forms import LoginForm, UserPasswordResetForm
 from django.contrib.auth import logout
 from admin_adminlte.forms import LoginForm, RegistrationForm
 from django.contrib.auth import views as auth_views
 from django.shortcuts import render
 
 
-
-
 def user_logout_view(request):
-  logout(request)
-  return redirect('/')
+    logout(request)
+    return redirect("/")
+
 
 class UserPasswordResetView(auth_views.PasswordResetView):
-  template_name = 'accounts/forgot-password.html'
-  form_class = UserPasswordResetForm
+    template_name = "accounts/forgot-password.html"
+    form_class = UserPasswordResetForm
+
 
 class UserLoginView(auth_views.LoginView):
-  template_name = 'login.html'
-  form_class = LoginForm
-  success_url = '/'
+    template_name = "login.html"
+    form_class = LoginForm
+    success_url = "/"
+
 
 # pages
 def index(request):
-  context = {
-    'parent': 'dashboard',
-    'segment': 'dashboardv1'
-  }
-  return render(request, 'pages/index.html', context)
+    context = {"parent": "dashboard", "segment": "dashboardv1"}
+    return render(request, "pages/index.html", context)
+
 
 def index2(request):
-  context = {
-    'parent': 'dashboard',
-    'segment': 'dashboardv2'
-  }
-  return render(request, 'pages/index2.html', context)
+    context = {"parent": "dashboard", "segment": "dashboardv2"}
+    return render(request, "pages/index2.html", context)
+
 
 def index3(request):
-  context = {
-    'parent': 'dashboard',
-    'segment': 'dashboardv3'
-  }
-  return render(request, 'pages/index.html', context)
+    context = {"parent": "dashboard", "segment": "dashboardv3"}
+    return render(request, "pages/index.html", context)
+
 
 def widgets(request):
-  context = {
-    'parent': '',
-    'segment': 'widgets'
-  }
-  return render(request, 'pages/widgets.html', context)
-  
+    context = {"parent": "", "segment": "widgets"}
+    return render(request, "pages/widgets.html", context)
+
+
 def profile(request):
-  context = {
-    'parent': 'pages',
-    'segment': 'profile'
-  }
-  return render(request, 'pages/examples/profile.html', context)
+    context = {"parent": "pages", "segment": "profile"}
+    return render(request, "pages/examples/profile.html", context)
 
 
 def register(request):
-  if request.method == 'POST':
-    form = RegistrationForm(request.POST)
-    if form.is_valid():
-      form.save()
-      print('Account created successfully!')
-      return redirect('/accounts/login/')
+    if request.method == "POST":
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            print("Account created successfully!")
+            return redirect("/accounts/login/")
+        else:
+            print("Registration failed!")
     else:
-      print("Registration failed!")
-  else:
-    form = RegistrationForm()
-  
-  context = {'form': form}
-  return render(request, 'accounts/register.html', context)
+        form = RegistrationForm()
 
-
+    context = {"form": form}
+    return render(request, "accounts/register.html", context)
 
 
 # def save_event(request):
@@ -97,13 +85,13 @@ def register(request):
 #             end_date=end_date,
 #             all_day=all_day
 #         )
-        
+
 #         # Return the ID of the newly created event in the response
 #         return JsonResponse({'success': True, 'event_id': new_event.id})
 #     else:
 #         return JsonResponse({'success': False, 'error': 'Invalid request method'})
 
-      
+
 # def update_event(request):
 #     if request.method == 'POST':
 #         event_id = request.POST.get('event_id')

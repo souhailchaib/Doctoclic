@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app', '0003_calendarevent_client'),
+        ("app", "0003_calendarevent_client"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='calendarevent',
-            name='client',
+            model_name="calendarevent",
+            name="client",
         ),
     ]

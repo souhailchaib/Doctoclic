@@ -7,30 +7,34 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('app', '0004_remove_calendarevent_client'),
+        ("app", "0004_remove_calendarevent_client"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='calendarevent',
-            name='created_at',
-            field=models.DateTimeField(auto_now_add=True, default=django.utils.timezone.now),
+            model_name="calendarevent",
+            name="created_at",
+            field=models.DateTimeField(
+                auto_now_add=True, default=django.utils.timezone.now
+            ),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='calendarevent',
-            name='updated_at',
+            model_name="calendarevent",
+            name="updated_at",
             field=models.DateTimeField(auto_now=True),
         ),
         migrations.AddField(
-            model_name='clientmodel',
-            name='created_at',
-            field=models.DateTimeField(auto_now_add=True, default=django.utils.timezone.now),
+            model_name="clientmodel",
+            name="created_at",
+            field=models.DateTimeField(
+                auto_now_add=True, default=django.utils.timezone.now
+            ),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='clientmodel',
-            name='updated_at',
+            model_name="clientmodel",
+            name="updated_at",
             field=models.DateTimeField(auto_now=True),
         ),
     ]

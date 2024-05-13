@@ -17,7 +17,7 @@
           <p>Calendar</p>
       </a>
     </li>
-  
+
     {% if app_list %}
     {% for app in app_list %}
     {% if app.has_perms and not app.pinned %}
@@ -52,8 +52,8 @@
     {% endif %}
     {% endfor %}
     {% endif %}
-    
-    
+
+
 
     {% if request.user.is_superuser %}
       <li class="nav-item {% if 'dashboard' in parent %} menu-open {% endif %}">
@@ -73,7 +73,7 @@
           </li>
         </ul>
       </li>
-      
+
     {% endif %}
 
     {% if not request.user.is_superuser %}
@@ -733,14 +733,14 @@
         <i class="fa fa-user-plus nav-icon"></i>
         <p>Register</p>
       </a>
-    </li>        
-    {% endif %} 
-    
+    </li>
+    {% endif %}
+
     <li class="nav-item">
       <a target="_blank" href="https://appseed.us/support/" class="nav-link">
         <i class="fa fa-rocket text-danger nav-icon"></i>
         <p>Support</p>
       </a>
-    </li>         
-    
+    </li>
+
   </ul>

@@ -20,12 +20,15 @@ from . import views
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    #path('login/', views.UserLoginView.as_view(), name='login'),
-    path('accounts/password-reset/', views.UserPasswordResetView.as_view(), name='password_reset'),
-    path('create/', views.create_client, name='create_client'),
-    path('update/<int:client_id>/', views.update_client, name='update_client'),
-    path('delete/<int:client_id>/', views.delete_client, name='delete_client'),
-    path('', views.UserLoginView.as_view(), name='login'),
+    path("admin/", admin.site.urls),
+    # path('login/', views.UserLoginView.as_view(), name='login'),
+    path(
+        "accounts/password-reset/",
+        views.UserPasswordResetView.as_view(),
+        name="password_reset",
+    ),
+    path("create/", views.create_client, name="create_client"),
+    path("update/<int:client_id>/", views.update_client, name="update_client"),
+    path("delete/<int:client_id>/", views.delete_client, name="delete_client"),
+    path("", views.UserLoginView.as_view(), name="login"),
 ]
-

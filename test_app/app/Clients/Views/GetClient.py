@@ -1,4 +1,3 @@
-
 from django.views.generic import View
 from django.http import JsonResponse, HttpResponse
 from django.core.paginator import Paginator, EmptyPage
@@ -7,32 +6,39 @@ from app.models import ClientModel  # Assuming you have imported the ClientModel
 
 
 class GetCLient(View):
-    
     def get(self, request):
         try:
-            if request.method == 'GET':
+            if request.method == "GET":
                 # Your logic to retrieve client data
-                search_query = request.GET.get('search[value]', '')
+                search_query = request.GET.get("search[value]", "")
 
                 # Query your dataset and filter based on search query
                 clients = ClientModel.objects.filter(
-                    Q(client_nom__icontains=search_query) |  # Search by client name
-                    Q(client_num__icontains=search_query)   # Search by client number
+                    Q(client_nom__icontains=search_query)
+                    | Q(  # Search by client name
+                        client_num__icontains=search_query
+                    )  # Search by client number
                 )
-                order_column_index = int(request.GET.get('order[0][column]', 0))
-                order_dir = request.GET.get('order[0][dir]', 'asc')
+                order_column_index = int(request.GET.get("order[0][column]", 0))
+                order_dir = request.GET.get("order[0][dir]", "asc")
 
-                if order_dir == 'desc':
-                    order_column = list(clients.model._meta.fields)[order_column_index].name
+                if order_dir == "desc":
+                    order_column = list(clients.model._meta.fields)[
+                        order_column_index
+                    ].name
                 else:
-                    order_column = '-' + list(clients.model._meta.fields)[order_column_index].name
+                    order_column = (
+                        "-" + list(clients.model._meta.fields)[order_column_index].name
+                    )
 
                 clients = clients.order_by(order_column)
 
                 # Paginate the filtered results
-                paginator = Paginator(clients, 10)  # Change '10' to your desired page length
-                page_number = int(request.GET.get('start', 0))
-                page_length = int(request.GET.get('length', 10))
+                paginator = Paginator(
+                    clients, 10
+                )  # Change '10' to your desired page length
+                page_number = int(request.GET.get("start", 0))
+                page_length = int(request.GET.get("length", 10))
 
                 # Ensure page_number is always an integer
                 page_number = int(page_number) if page_number is not None else 1
@@ -47,10 +53,10 @@ class GetCLient(View):
 
                 # Prepare data for DataTables response
                 data = {
-                    'draw': int(request.GET.get('draw', 1)),
-                    'recordsTotal': paginator.count,
-                    'recordsFiltered': paginator.count,
-                    'data': [
+                    "draw": int(request.GET.get("draw", 1)),
+                    "recordsTotal": paginator.count,
+                    "recordsFiltered": paginator.count,
+                    "data": [
                         {
                             "client_id": client.id,
                             "client_num_dossier": client.client_num_dossier,
@@ -82,7 +88,7 @@ class GetCLient(View):
                             # Add other client fields as needed
                         }
                         for client in page_obj
-                    ]
+                    ],
                 }
                 return JsonResponse(data)
                 # Return JSON response
@@ -91,4 +97,6 @@ class GetCLient(View):
                 return HttpResponse(status=405)  # Method not allowed
 
         except Exception as e:
-            return JsonResponse({'error': str(e)}, status=500)  # Handle other HTTP methods (e.g., POST, PUT, DELETE)
+            return JsonResponse(
+                {"error": str(e)}, status=500
+            )  # Handle other HTTP methods (e.g., POST, PUT, DELETE)

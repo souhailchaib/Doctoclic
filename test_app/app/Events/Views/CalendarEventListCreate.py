@@ -7,4 +7,3 @@ from rest_framework.response import Response
 class CalendarEventListCreate(generics.ListCreateAPIView):
     queryset = CalendarEvent.objects.all()
     serializer_class = CalendarEventSerializer
-    

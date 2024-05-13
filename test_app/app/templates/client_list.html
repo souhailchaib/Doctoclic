@@ -7,7 +7,7 @@
 <!-- DataTables -->
 <link rel="stylesheet" href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
 <link rel="stylesheet" href="{% static 'plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
-<link rel="stylesheet" href="{% static 'plugins/datatables-buttons/css/buttons.bootstrap4.min.css' %}"> 
+<link rel="stylesheet" href="{% static 'plugins/datatables-buttons/css/buttons.bootstrap4.min.css' %}">
 
 {% endblock extrastyle %}
 
@@ -16,7 +16,7 @@
 {% block content %}
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    
+
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="container-fluid">
@@ -42,7 +42,7 @@
         <div class="card-body">
             <div class="table-responsive">
                 <table id="example1" class="table table-bordered table-striped">
-                    <thead> 
+                    <thead>
                         <tr>
                             <th>Id</th>
                             <th>Num Dossier</th>
@@ -74,13 +74,13 @@
                             <th>Actions</th> <!-- New column for edit and delete buttons -->
                         </tr>
                     </thead>
-                
-                </table>                
+
+                </table>
             </div>
         </div>
         <!-- /.card-body -->
     </div>
-    
+
 </div>
 <!-- /.content-wrapper -->
 {% endblock content %}
@@ -109,12 +109,12 @@
             "serverSide": true,
             "ajax": {
                 "url": "get_client/",  // This should match the URL configured in your Django urls.py for the getdata method of ClientListView
-                "type": "GET",  
+                "type": "GET",
                 "data": function (d) {
                 // Customize the AJAX request data here
                     console.log("DataTables AJAX request parameters:", d);
                     return d;
-            }},    
+            }},
             "columns": [
             {"data":"client_id"},
             { "data": "client_num_dossier" },
@@ -144,7 +144,7 @@
             { "data": "client_ref_mutuelle_externe" },
             { "data": "client_ref_compte_externe" },
             {"data": null,
-            
+
                     "render": function(data, type, row) {
                         // Add edit and delete buttons
                         return '<button class="edit-btn" data-id="' + row.client_id + '">Edit</button>'+
@@ -170,10 +170,10 @@
 
         $('#example1 tbody').on('click', '.delete-btn', function () {
             var clientId = $(this).data('id');
-            
+
             // Show confirmation dialog
             var confirmed = confirm("Are you sure you want to delete this client?");
-            
+
             // If user confirms, submit the form to delete the client
             if (confirmed) {
                 var deleteUrl = "{% url 'delete_client' 0 %}".replace('0', clientId);
@@ -199,7 +199,7 @@
 
 </script>
 
-        
+
 </script>
 
 {% endblock extra_scripts %}

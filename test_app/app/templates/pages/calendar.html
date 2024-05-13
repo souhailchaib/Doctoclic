@@ -7,7 +7,7 @@
   <!-- fullCalendar -->
   <link rel="stylesheet"  href="{% static 'plugins/fullcalendar/main.css' %}">
   <link rel="stylesheet"  href="{% static 'dist/css/dropdown.css' %}">
-  
+
 {% endblock extrastyle %}
 
 {% block bodyclass %} hold-transition sidebar-mini {% endblock bodyclass %}
@@ -83,7 +83,7 @@
                         <button type="button" class="btn btn-danger" id="deleteEvntBtn">Delete</button>
                         <button type="button" class="btn btn-primary" id="saveEvntBtn">Save</button>
                       </div>
-                    </div>                    
+                    </div>
                   </div>
                 </div>
               </div>
@@ -119,12 +119,12 @@ $(document).ready(function() {
     function showAutocompleteDropdown(data) {
         var dropdown = $('#autocompleteDropdown');
         dropdown.empty(); // Clear previous suggestions
-        
+
         // Add new suggestions to the dropdown
         $.each(data, function(index, item) {
             dropdown.append('<div class="autocomplete-item">' + item + '</div>');
         });
-        
+
         // Show the dropdown below the input field
         dropdown.show();
     }
@@ -132,7 +132,7 @@ $(document).ready(function() {
     // Initialize Autocomplete widget on the input field
     $('#clientInput').on('input', function() {
         var searchTerm = $(this).val();
-        
+
         // Make AJAX request to fetch autocomplete suggestions
         $.ajax({
             url: 'get_client', // Endpoint to fetch clients from the backend
@@ -178,10 +178,10 @@ var calendar = new Calendar(calendarEl, {
         center: 'title',
         right: 'dayGridMonth,timeGridWeek,timeGridDay'
     },
-    
+
     themeSystem: 'bootstrap',
     initialView: 'timeGridWeek',
-    events: '/get_events/', // Endpoint to fetch events from the backend, 
+    events: '/get_events/', // Endpoint to fetch events from the backend,
     editable: true,
     droppable: true,
     drop: function(info) {
@@ -189,7 +189,7 @@ var calendar = new Calendar(calendarEl, {
             info.draggedEl.parentNode.removeChild(info.draggedEl);
         }
     },
-    
+
     eventClick: showEventForm,
     dateClick: ShowDateEvent,
 
@@ -212,7 +212,7 @@ $(document).ready(function() {
   });
 
 
-  
+
 function ShowDateEvent(info) {
     // Open the event form modal here
     $('#eventFormModal').modal('show');
@@ -221,11 +221,11 @@ function ShowDateEvent(info) {
     // Format the date to match datetime-local input format (YYYY-MM-DDTHH:MM)
     var startDate = info.date.toISOString().slice(0, 16);
     $('#eventStart').val(startDate);
-    
+
      // Check if the title property is available
      var title = info.event ? info.event.title : '';
     $('#eventTitle').val(title);
-    
+
     // Set end date if available
     var endDate = info.event.end ? info.event.end.toISOString().slice(0, 16) : '';
     $('#eventEnd').val(endDate);
@@ -242,7 +242,7 @@ function ShowDateEvent(info) {
             end: $('#eventEnd').val(),
             allDay: $('#eventAllDay').prop('checked')
         };
-        
+
         // Send formData to server
         sendEventData(formData);
     });
@@ -252,7 +252,7 @@ function showEventForm(info) {
     var event = info.event;
     var eventId = event.id;
     console.log(eventId)
-    
+
     // Send AJAX request to fetch event details
     $.ajax({
         url: '/get_event/',
@@ -294,7 +294,7 @@ function showEventForm(info) {
     });
 
     // Event handlers for save and delete buttons
-    
+
     $('#saveEvntBtn').off('click').on('click', function() {
         // Get values from form fields
         var formData = {
@@ -304,7 +304,7 @@ function showEventForm(info) {
             end: $('#eventEnd').val(),
             allDay: $('#eventAllDay').prop('checked')
         };
-        
+
         // Send formData to server
         updateEventData(formData);
         // Reload the current page
@@ -364,7 +364,7 @@ function updateEventData(formData) {
         updatedEvent.setStart(formData.start);
         updatedEvent.setEnd(formData.end);
         updatedEvent.setAllDay(formData.allDay);
-        
+
         // Send the updated event data to the server
         const message = {
             action: 'update_event',
@@ -395,11 +395,11 @@ $('#saveEvntBtn').off('click').on('click', function() {
             end: $('#eventEnd').val(),
             allDay: $('#eventAllDay').prop('checked')
         };
-        
+
         // Send formData to server
         sendEventData(formData);
     });
-    
+
 
 
 function deleteEvent(eventId) {
@@ -451,7 +451,7 @@ socket.onclose = function(event) {
 //             info.event.setExtendedProp('allDay', allDay);
 //             // Close the modal or perform any other actions
 //             $('#eventFormModal').modal('hide');
-            
+
 //             // Optionally, rerender or refresh the calendar to reflect the changes
 //         },
 //         error: function(xhr, status, error) {
@@ -468,7 +468,7 @@ socket.onclose = function(event) {
 //     var allDay = $('#eventAllDay').prop('checked');
 
 //     var eventData = {
-        
+
 //         title: title,
 //         start: start,
 //         end: end,
@@ -535,15 +535,15 @@ socket.onclose = function(event) {
 //       });
 //   }
 
-  
+
 // $(function () {
 
-  
+
 // document.addEventListener('DOMContentLoaded', function() {
 
 //   console.log('Clicked event ID:', event.id);
-  
-  
+
+
 // });
 
 //   })
